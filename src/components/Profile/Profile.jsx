@@ -5,7 +5,7 @@ import MyPosts from './MyPosts/MyPosts'
 
 const Profile = (props) => {
   return (
-        <div className={s.content}>
+        <div>
             <div>
               <img src='https://img5.goodfon.ru/original/1680x1050/e/10/new-zealand-sunset-mountains-landscape.jpg' alt=''/>
             </div>

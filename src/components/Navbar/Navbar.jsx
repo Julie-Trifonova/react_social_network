@@ -6,12 +6,12 @@ const Navbar = (props) => {
   return (
     <nav className={s.nav}>
         <div className={`${s.item} ${s.active}`}>
-          <a>
+          <a href='/profile'>
             Profile
           </a>
         </div>
         <div className={`${s.item} ${s.active}`}>
-          <a>
+          <a href='/dialogs'>
             Messages
           </a>
         </div>
