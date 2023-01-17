@@ -4,8 +4,11 @@ import s from './Dialogs.module.css'
 
 function Dialogs(props) {
   return (
-    <div className={s.content}>Dialogs
-    <span>scd</span></div>
+    <div className={s.content}>
+      Dialogs
+      <div>Hello!</div>
+      <div>Arch bridges - it's cool!</div>
+    </div>
   )
 }
 

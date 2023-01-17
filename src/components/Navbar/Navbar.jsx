@@ -1,39 +1,55 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import s from './Navbar.module.css' 
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import s from "./Navbar.module.css";
+import { NavLink } from "react-router-dom";
 
 const Navbar = (props) => {
   return (
     <nav className={s.nav}>
-        <div className={`${s.item} ${s.active}`}>
-          <a href='/profile'>
-            Profile
-          </a>
-        </div>
-        <div className={`${s.item} ${s.active}`}>
-          <a href='/dialogs'>
-            Messages
-          </a>
-        </div>
-        <div className={`${s.item} ${s.active}`}>
-          <a>
-            News
-          </a>
-        </div>
-        <div className={`${s.item} ${s.active}`}>
-          <a>
-            Music
-          </a>
-        </div>
-        <div className={`${s.item} ${s.active}`}>
-          <a>
-            Settings
-          </a>
-        </div>
-      </nav>
-  )
-}
+      <div className={s.item}>
+        <NavLink
+          to="/profile"
+          className={({ isActive }) => (isActive ? s.active : s.inactive)}
+        >
+          Profile
+        </NavLink>
+      </div>
+      <div className={s.item}>
+        <NavLink
+          to="/dialogs"
+          className={({ isActive }) => (isActive ? s.active : s.inactive)}
+        >
+          Messages
+        </NavLink>
+      </div>
+      <div className={s.item}>
+        <NavLink
+          to=""
+          className={({ isActive }) => (isActive ? s.active : s.inactive)}
+        >
+          News
+        </NavLink>
+      </div>
+      <div className={s.item}>
+        <NavLink
+          to=""
+          className={({ isActive }) => (isActive ? s.active : s.inactive)}
+        >
+          Music
+        </NavLink>
+      </div>
+      <div className={s.item}>
+        <NavLink
+          to=""
+          className={({ isActive }) => (isActive ? s.active : s.inactive)}
+        >
+          Settings
+        </NavLink>
+      </div>
+    </nav>
+  );
+};
 
-Navbar.propTypes = {}
+Navbar.propTypes = {};
 
-export default Navbar
+export default Navbar;
