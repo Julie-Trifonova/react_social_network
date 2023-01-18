@@ -2,18 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import s from './Profile.module.css'
 import MyPosts from './MyPosts/MyPosts'
+import ProfileInfo from './ProfileInfo/ProfileInfo'
 
 const Profile = (props) => {
   return (
         <div>
-            <div>
-              <img src='https://img5.goodfon.ru/original/1680x1050/e/10/new-zealand-sunset-mountains-landscape.jpg' alt=''/>
-            </div>
-            <div>
-              ava + description
-            </div>
-            <MyPosts/>
-          </div>
+          <ProfileInfo/>
+          <MyPosts/>
+        </div>
   )
 }
 
