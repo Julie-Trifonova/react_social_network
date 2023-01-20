@@ -6,7 +6,7 @@ const ProfileInfo = (props) => {
   return (
         <div className='content'>
           <div>
-            <img src='https://img5.goodfon.ru/original/1680x1050/e/10/new-zealand-sunset-mountains-landscape.jpg' alt=''/>
+            <img src='https://catherineasquithgallery.com/uploads/posts/2021-02/1612605223_96-p-fon-khvoinii-les-193.jpg' alt=''/>
           </div>
           <div className={s.descriptionBlock}>
             ava + description
