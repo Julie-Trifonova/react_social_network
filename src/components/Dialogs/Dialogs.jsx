@@ -1,28 +1,43 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import s from './Dialogs.module.css'
-import { NavLink } from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import Message from './Message/Message';
 import DialogItem from './DialogItem/DialogItem';
+import {sendMessageCreator, updateNewMessageCreator} from "../../redux/state";
 
 const Dialogs = (props) => {
 
-  let messagesElements = props.state.messages
-    .map( m => <Message key={m.id} id={m.id} message={m.message}/>);
+    let state = props.store.getState().messagesPage;
+    let messagesElements = state.messages
+        .map(m => <Message key={m.id} id={m.id} message={m.message}/>);
+    let dialogsElements = state.dialogs
+        .map(d => <DialogItem key={d.id} id={d.id} name={d.name}/>);
+    let newMessageBody = state.newMessageBody;
 
-    let dialogsElements = props.state.dialogs
-    .map( d => <DialogItem key={d.id} id={d.id} name={d.name}/>);
-
-  return (
-    <div className={s.dialogs}>
-      <div className={s.dialogsItems}>
-        {messagesElements}
-      </div>
-      <div className={s.messages}>
-        {dialogsElements}
-      </div>
-    </div>
-  )
+    let onSendMessagesClick = () => {
+        props.store.dispatch(sendMessageCreator());
+    }
+    let onNewMessageChange = (e) => {
+        let body = e.target.value;
+        props.store.dispatch(updateNewMessageCreator(body));
+    }
+    return (
+        <div className={s.dialogs}>
+            <div className={s.dialogsItems}>
+                {messagesElements}
+            </div>
+            <div className={s.messages}>
+                <div>{dialogsElements}</div>
+                <div><textarea value={newMessageBody}
+                               onChange={onNewMessageChange}
+                               placeholder='Enter your message'></textarea></div>
+                <div>
+                    <button onClick={onSendMessagesClick}>Send</button>
+                </div>
+            </div>
+        </div>
+    )
 }
 
 Dialogs.propTypes = {}
