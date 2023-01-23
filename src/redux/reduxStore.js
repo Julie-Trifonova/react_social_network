@@ -1,12 +1,22 @@
 import {createStore, legacy_createStore} from "redux";
-import {configureStore} from "@reduxjs/toolkit";
+import {configureStore, getDefaultMiddleware} from "@reduxjs/toolkit";
+import {combineReducers} from 'redux'
+import profileReducer from "./profileReducer";
+import dialogsReducer from "./dialogsReducer";
 
-let store_old = legacy_createStore();
-let store = configureStore();
+let reducers = combineReducers({
+    profilePage: profileReducer,
+    messagesPage: dialogsReducer
+});
 
-let reducers = combineReducers()
-
+let store = legacy_createStore(reducers);
+// let store = configureStore(reducers);
+// let store = configureStore({
+//     reducer: {
+//         profilePage: profileReducer, messagesPage: dialogsReducer
+//     },
+//     middleware: getDefaultMiddleware({ serializableCheck: false, immutableCheck: false }).concat(),
+// });
 
 
 export default store;
-export {store_old}
