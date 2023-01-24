@@ -20,7 +20,6 @@ const Dialogs = (props) => {
         props.sendMessage();
     }
     let onNewMessageChange = (body) => {
-        // let body = e.target.value;
         props.updateNewMessageBody(body)
         // props.store.dispatch(updateNewMessageCreator(body));
     }
