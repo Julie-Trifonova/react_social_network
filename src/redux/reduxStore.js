@@ -10,6 +10,9 @@ let reducers = combineReducers({
 });
 
 let store = legacy_createStore(reducers);
+
+window.store = store;
+
 // let store = configureStore(reducers);
 // let store = configureStore({
 //     reducer: {
