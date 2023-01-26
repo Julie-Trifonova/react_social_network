@@ -2,15 +2,11 @@ import {nanoid} from "nanoid";
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
+const SET_USERS = 'SET_USERS';
+
 
 let initialState = {
-    users: [
-        { id: nanoid(), followed: false, fullName: "Jimmy", status: 'Developer', location: {city: 'Rom', country: 'Italy'}},
-        { id: nanoid(), followed: false, fullName: "Hannah", status: 'Architect', location: {city: 'Oulu', country: 'Finland'}},
-        { id: nanoid(), followed: true, fullName: "Uati", status: 'Batman', location: {city: 'Auckland', country: 'New Zealand'}},
-
-    ],
-    newPostText: "itBro",
+    users: [],
 };
 
 const usersReducer = (state = initialState, action ) => {
@@ -27,6 +23,21 @@ const usersReducer = (state = initialState, action ) => {
             }
 
         case UNFOLLOW:
+            return {
+                ...state,
+                users: state.users.map( u => {
+                    if(u.id === action.userId) {
+                        return {...u, followed: false}
+                    }
+                    return u;
+                })
+            }
+        case SET_USERS: {
+            return {
+                ...state,
+                users: [...state.users, ...action.users]
+            }
+        }
         default:
             return state;
         }
@@ -40,4 +51,8 @@ export const unfollowAC = (userId) => ({
     type: UNFOLLOW, userId
 })
 
-export default usersReducer;
+export const setUsersAC = (users) => ({
+    type: SET_USERS, users
+})
+
+    export default usersReducer;

@@ -3,10 +3,12 @@ import {configureStore, getDefaultMiddleware} from "@reduxjs/toolkit";
 import {combineReducers} from 'redux'
 import profileReducer from "./profileReducer";
 import dialogsReducer from "./dialogsReducer";
+import usersReducer from "./usersReducer";
 
 let reducers = combineReducers({
     profilePage: profileReducer,
-    messagesPage: dialogsReducer
+    messagesPage: dialogsReducer,
+    usersPage: usersReducer
 });
 
 let store = legacy_createStore(reducers);
