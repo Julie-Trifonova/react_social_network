@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./users.module.css";
 import {nanoid} from "nanoid";
 import userPhoto from "../../assets/images/user_1.jpg";
+import {NavLink} from "react-router-dom";
 
 const Users = (props) => {
 
@@ -26,10 +27,14 @@ const Users = (props) => {
                 props.users.map(u => <div key={nanoid()}>
                     <span>
                         <div>
+                            <NavLink to={'/profile/'
+                                // + u.id
+                            }>
                             <img src={u.photos.small !== null ? u.photos.small : userPhoto}
                                  className={styles.userPhoto}
                                  alt=''
                             />
+                            </NavLink>
                         </div>
                         <div>
                             {u.followed

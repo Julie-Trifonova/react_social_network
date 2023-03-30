@@ -1,17 +1,18 @@
 import React from "react";
-import PropTypes from "prop-types";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
+import Preloader from "../common/Preloader";
 
 const Profile = (props) => {
+    if (!props.profile) {
+        return <Preloader/>
+    }
   return (
     <div>
-      <ProfileInfo />
+      <ProfileInfo profile={props.profile}/>
       <MyPostsContainer store={props.store}/>
     </div>
   );
 };
-
-Profile.propTypes = {};
 
 export default Profile;

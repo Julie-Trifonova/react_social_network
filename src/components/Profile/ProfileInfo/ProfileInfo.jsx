@@ -9,6 +9,7 @@ const ProfileInfo = (props) => {
             <img src='https://catherineasquithgallery.com/uploads/posts/2021-02/1612605223_96-p-fon-khvoinii-les-193.jpg' alt=''/>
           </div>
           <div className={s.descriptionBlock}>
+              <img src={props.profile.photos.large} alt=''/>
             ava + description
           </div>
         </div>
