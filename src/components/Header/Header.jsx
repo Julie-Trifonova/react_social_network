@@ -1,6 +1,6 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import s from './Header.module.css'
+import {NavLink} from "react-router-dom";
 
 const Header = (props) => {
   return (
@@ -9,10 +9,12 @@ const Header = (props) => {
         src="https://cdn.cssauthor.com/wp-content/uploads/2012/12/accelrys1.png?strip=all&lossy=1&resize=730%2C500&ssl=1"
         alt=""
       />
+        <div className={s.loginBlock}>
+            { props.isAuth ? props.login :
+                <NavLink to={'/login'}>Login</NavLink> }
+        </div>
     </header>
   );
 }
-
-Header.propTypes = {}
 
 export default Header;
