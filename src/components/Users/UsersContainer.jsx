@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from "react-redux";
 import {
-    follow, getUsersThunkCreator,
+    follow, getUsers,
     setCurrentPage, toggleFollowingProgress,
     unfollow
 } from "../../redux/usersReducer";
@@ -69,6 +69,6 @@ export default connect(mapStateToProps,
         unfollow,
         setCurrentPage,
         toggleFollowingProgress,
-        getUsers: getUsersThunkCreator
+        getUsers
     }
 )(UsersContainer);
