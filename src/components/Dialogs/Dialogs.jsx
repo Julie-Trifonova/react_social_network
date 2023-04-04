@@ -1,10 +1,8 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import s from './Dialogs.module.css'
-import {NavLink} from "react-router-dom";
 import Message from './Message/Message';
 import DialogItem from './DialogItem/DialogItem';
-import {sendMessageCreator, updateNewMessageCreator} from "../../redux/dialogsReducer";
+import {Navigate} from "react-router-dom";
 
 const Dialogs = (props) => {
 
@@ -16,13 +14,14 @@ const Dialogs = (props) => {
     let newMessageBody = state.newMessageBody;
 
     let onSendMessagesClick = () => {
-        // props.store.dispatch(sendMessageCreator());
         props.sendMessage();
     }
     let onNewMessageChange = (body) => {
-        props.updateNewMessageBody(body)
-        // props.store.dispatch(updateNewMessageCreator(body));
+        props.updateNewMessageBody(body);
     }
+
+    if(!props.isAuth) return <Navigate to="/login" replace />
+
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
@@ -42,6 +41,5 @@ const Dialogs = (props) => {
     )
 }
 
-Dialogs.propTypes = {}
 
 export default Dialogs
