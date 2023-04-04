@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 import {connect} from "react-redux";
 import {
-    follow, getUsers,
+    followSuccess, getUsers,
     setCurrentPage, toggleFollowingProgress,
-    unfollow
+    unfollowSuccess
 } from "../../redux/usersReducer";
 import Users from "./Users";
 import Preloader from "../common/Preloader";
@@ -12,25 +12,10 @@ export class UsersContainer extends Component {
 
     componentDidMount() {
         this.props.getUsers(this.props.currentPage, this.props.pageSize);
-        // this.props.toggleIsFetching(true);
-        //
-        // usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
-        //     .then(data => {
-        //         this.props.toggleIsFetching(false);
-        //         this.props.setUsers(data.items);
-        //         this.props.setUsersTotalCount(data.totalCount);
-        //     });
     }
 
     onPageChanged = (pageNumber) => {
         this.props.getUsers(pageNumber, this.props.pageSize);
-        // this.props.toggleIsFetching(true);
-        // this.props.setCurrentPage(pageNumber);
-        // usersAPI.getUsers(pageNumber, this.props.pageSize)
-        //     .then(data => {
-        //         this.props.toggleIsFetching(false);
-        //         this.props.setUsers(data.items)
-        //     });
     }
 
     render() {
@@ -43,8 +28,8 @@ export class UsersContainer extends Component {
             currentPage={this.props.currentPage}
             onPageChanged={this.onPageChanged}
             users={this.props.users}
-            follow={this.props.follow}
-            unfollow={this.props.unfollow}
+            follow={this.props.followSuccess}
+            unfollow={this.props.unfollowSuccess}
             toggleFollowingProgress={this.props.toggleFollowingProgress}
             followingInProgress={this.props.followingInProgress}
         />
@@ -65,8 +50,8 @@ let mapStateToProps = (state) => {
 
 export default connect(mapStateToProps,
     {
-        follow,
-        unfollow,
+        followSuccess,
+        unfollowSuccess,
         setCurrentPage,
         toggleFollowingProgress,
         getUsers
