@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from "react-redux";
 import {
+    follow, unfollow,
     followSuccess, getUsers,
     setCurrentPage, toggleFollowingProgress,
     unfollowSuccess
@@ -28,8 +29,8 @@ export class UsersContainer extends Component {
             currentPage={this.props.currentPage}
             onPageChanged={this.onPageChanged}
             users={this.props.users}
-            follow={this.props.followSuccess}
-            unfollow={this.props.unfollowSuccess}
+            follow={this.props.follow}
+            unfollow={this.props.unfollow}
             toggleFollowingProgress={this.props.toggleFollowingProgress}
             followingInProgress={this.props.followingInProgress}
         />
@@ -50,8 +51,8 @@ let mapStateToProps = (state) => {
 
 export default connect(mapStateToProps,
     {
-        followSuccess,
-        unfollowSuccess,
+        follow,
+        unfollow,
         setCurrentPage,
         toggleFollowingProgress,
         getUsers
