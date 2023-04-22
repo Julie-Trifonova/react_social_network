@@ -3,7 +3,7 @@ import s from './ProfileInfo.module.css'
 import ProfileStatus from './ProfileStatus'
 
 import landscape from '../../../assets/images/land_scape.jpg'
-import Preloader from "../../common/Preloader";
+import Preloader from "../../common/Preloader/Preloader";
 
 const ProfileInfo = (props) => {
     if(!props.profile) {

@@ -1,4 +1,4 @@
-import preloader from "../../assets/images/gif-loading.gif";
+import preloader from "../../../assets/images/gif-loading.gif";
 import React from "react";
 
 const Preloader = (props) => {
