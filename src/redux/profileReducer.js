@@ -4,7 +4,7 @@ import {profileAPI, usersAPI} from "../components/api/api";
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
-const SET_STATUS = 'SET_USER_PROFILE';
+const SET_STATUS = 'SET_STATUS';
 
 let initialState = {
     posts: [
@@ -76,7 +76,6 @@ export const getUserProfile = (userId) => (dispatch) => {
 }
 export const getStatus = (userId) => (dispatch) => {
     profileAPI.getStatus(userId).then(response => {
-        debugger
         dispatch(setStatus(response.data))
     });
 }

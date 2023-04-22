@@ -11,10 +11,13 @@ class ProfileContainer extends Component {
     componentDidMount() {
         let userId = this.props.params.userId;
         if(!userId) {
-            userId = 2;
+            userId = 28613;
         }
         this.props.getUserProfile(userId);
-        this.props.getStatus(userId);
+        setTimeout(()=> {
+            this.props.getStatus(userId);
+        }, 1000)
+
     }
 
     render() {
@@ -34,7 +37,7 @@ let mapStateToProps = (state) => ({
 export default compose(
     connect(mapStateToProps, {getUserProfile, getStatus, updateStatus}),
     withRouter,
-    // withAuthRedirect
+    withAuthRedirect
 )(ProfileContainer)
 
 // let AuthRedirectComponent = withAuthRedirect(ProfileContainer);

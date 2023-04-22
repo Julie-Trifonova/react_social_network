@@ -1,4 +1,3 @@
-import {nanoid} from "nanoid";
 import {authAPI} from "../components/api/api";
 
 const SET_USER_DATA = 'SET_USER_DATA';
