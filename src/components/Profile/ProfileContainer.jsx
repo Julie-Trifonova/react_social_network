@@ -10,14 +10,14 @@ class ProfileContainer extends Component {
 
     componentDidMount() {
         let userId = this.props.params.userId;
-        if(!userId) {
+        if (!userId) {
             userId = this.props.authorizedUserId;
-            if(!userId) {
+            if (!userId) {
                 this.props.history.push('/login')
             }
-                }
+        }
         this.props.getUserProfile(userId);
-        setTimeout(()=> {
+        setTimeout(() => {
             this.props.getStatus(userId);
         }, 1000)
 
@@ -25,14 +25,15 @@ class ProfileContainer extends Component {
 
     render() {
         return (
-                <Profile {...this.props}
-                         profile={this.props.profile}
-                         status={this.props.status}
-                         updateStatus={this.props.updateStatus}
-                />
+            <Profile {...this.props}
+                     profile={this.props.profile}
+                     status={this.props.status}
+                     updateStatus={this.props.updateStatus}
+            />
         )
     }
 }
+
 let mapStateToProps = (state) => ({
     profile: state.profilePage.profile,
     status: state.profilePage.status,
