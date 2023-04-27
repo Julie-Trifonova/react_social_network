@@ -7,18 +7,17 @@ import {login} from "../../redux/authReducer";
 import {Navigate} from "react-router-dom";
 import style from './../common/FormsControls/FormsControls.module.css'
 
-const LoginForm = (handleSubmit, error) => {
+const LoginForm = ({handleSubmit, error}) => {
     return (
         <form onSubmit={handleSubmit}>
             {createField('Email', 'email', [required], Input)}
             {createField('Password', 'password', [required], Input, {type: 'password'})}
             {createField(null, 'rememberMe', [], Input, {type: 'checkbox'}, 'remember me')}
-            {/*{error &&*/}
-            {/*    <div className={style.formSummaryError}>*/}
-            {/*        {error}*/}
-            {/*    </div>*/}
-            {/*}*/}
-
+            {error &&
+                <div className={style.formSummaryError}>
+                    {error}
+                </div>
+            }
             <div>
                 <button>Login</button>
             </div>
