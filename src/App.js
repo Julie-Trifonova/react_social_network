@@ -1,7 +1,7 @@
 import React, {lazy} from "react";
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {BrowserRouter, HashRouter, Route, Routes} from "react-router-dom";
 
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 // const DialogsContainer = lazy(() => import('./components/Dialogs/DialogsContainer'))
@@ -67,7 +67,7 @@ let AppContainer = compose(
     connect(mapStateToProps, {initializeApp}))(App);
 
 const SamuraiJSApp = (props) => {
-    return <BrowserRouter>
+    return <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Provider store={store}>
             <AppContainer/>
         </Provider>
