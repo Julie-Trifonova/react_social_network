@@ -5,3 +5,10 @@
   .content img {
     width: 600px;
   } */
+
+.mainPhoto {
+   max-width: 200px;
+}
+.descriptionBlock {
+    padding: 20px;
+}
