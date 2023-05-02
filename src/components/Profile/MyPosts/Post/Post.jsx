@@ -1,12 +1,12 @@
 import React from "react";
-import PropTypes from "prop-types";
-import s from "./Post.module.css";
+import post_avatar from "../../../../assets/images/4.jpeg";
+import styles from './Post.module.css'
 
 const Post = (props) => {
   return (
-    <div className={s.item}>
+    <div className={styles.item}>
       <img
-        src="https://www.ejin.ru/wp-content/uploads/2018/10/avatarki-dlya-skype1.jpeg"
+        src={post_avatar}
         alt=""
       />
       {props.message}
@@ -16,7 +16,5 @@ const Post = (props) => {
     </div>
   );
 };
-
-Post.propTypes = {};
 
 export default Post;
