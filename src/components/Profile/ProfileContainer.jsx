@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import {getStatus, getUserProfile, savePhoto, saveProfile, updateStatus} from "../../redux/profileReducer";
+import {getStatus, getUserProfile, savePhoto, saveProfile, updateStatus} from "../../redux/profileReducer.ts";
 import withRouter from "../common/WithRouter";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
@@ -9,7 +9,7 @@ import {compose} from "redux";
 class ProfileContainer extends Component {
 
     refreshProfile() {
-        let userId = this.props.params.userId;
+        let userId = this.props.router.params.userId;
         if (!userId) {
             userId = this.props.authorizedUserId;
             if (!userId) {
@@ -25,7 +25,7 @@ class ProfileContainer extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.params.userId !== prevProps.params.userId) {
+        if (this.props.router.params.userId !== prevProps.router.params.userId) {
             this.refreshProfile()
         }
 
@@ -34,7 +34,7 @@ class ProfileContainer extends Component {
     render() {
         return (
             <Profile {...this.props}
-                     isOwner={!this.props.params.userId}
+                     isOwner={!this.props.router.params.userId}
                      profile={this.props.profile}
                      status={this.props.status}
                      updateStatus={this.props.updateStatus}

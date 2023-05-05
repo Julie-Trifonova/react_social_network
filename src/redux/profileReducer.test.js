@@ -1,9 +1,10 @@
 import profileReducer, {addPostActionCreator, deletePost} from "./profileReducer";
+import {nanoid} from "nanoid";
 
 let state = {
     posts: [
-        { id: 1, message: "Hi, how are you?", likesCount: 5 },
-        { id: 2, message: "It`s my first post", likesCount: 27 },
+        { id: nanoid(), message: "Hi, how are you?", likesCount: 5 },
+        { id: nanoid(), message: "It`s my first post", likesCount: 27 },
     ]
 };
 

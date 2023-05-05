@@ -1,7 +1,16 @@
 import React from 'react'
-import s from './ProfileInfo.module.css'
 
-class ProfileStatus extends React.Component {
+type PropsType = {
+    status: string
+    updateStatus: (newStatus: string) => void
+}
+type StateType = {
+    editMode: boolean,
+    status: string
+}
+
+
+class ProfileStatus extends React.Component<PropsType, StateType> {
     state = {
         editMode: false,
         status: this.props.status
@@ -24,7 +33,7 @@ class ProfileStatus extends React.Component {
         })
     }
 
-    componentDidUpdate(prevProps, prevState, df) {
+    componentDidUpdate(prevProps: PropsType, prevState: StateType) {
         if(prevProps.status !== this.props.status) {
             this.setState({
                 status: this.props.status
