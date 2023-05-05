@@ -19,10 +19,9 @@ let rootReducers = combineReducers({
 type RootReducerType = typeof rootReducers // (globalState: AppStateType) => AppStateType
 export type AppStateType = ReturnType<RootReducerType>
 
-
-type PropertiesType<T> = T extends {[key: string]: infer U} ? U : never
-export type InferActionsTypes<T> = ReturnType<PropertiesType<T>>
-// export type ActionsTypes<T extends {[key: string]: (...args: any[] => any)}> = ReturnType<PropertiesType<T>>
+// type PropertiesType<T> = T extends {[key: string]: infer U} ? U : never
+// export type InferActionsTypes<T> = ReturnType<PropertiesType<T>>
+export type InferActionsTypes<T> = T extends {[key: string]: (...args: any[]) => infer U} ? U : never
 export type BaseThunkType<A extends Action = Action, R = Promise<void>> = ThunkAction<R, AppStateType, unknown, A>
 
 // @ts-ignore

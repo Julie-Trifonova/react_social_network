@@ -3,9 +3,18 @@ import s from './Dialogs.module.css'
 import Message from './Message/Message';
 import DialogItem from './DialogItem/DialogItem';
 import {Navigate} from "react-router-dom";
-import AddMessageFormRedux from './AddMessageForm'
+import AddMessageFormRedux from './AddMessageForm.tsx'
+import {InitialStateType} from "../../redux/dialogsReducer.ts";
 
-const Dialogs = (props) => {
+type OwnPropsType = {
+    messagesPage: InitialStateType
+    sendMessage: (messageText: string) => void
+}
+export type NewMessageFormValuesType = {
+    newMessageBody: string
+}
+
+const Dialogs: React.FC<PropsType> = (props) => {
 
     let state = props.messagesPage;
     let messagesElements = state.messages
@@ -14,7 +23,7 @@ const Dialogs = (props) => {
         .map(d => <DialogItem key={d.id} id={d.id} name={d.name}/>);
     let newMessageBody = state.newMessageBody;
 
-    let addNewMessage = (values) => {
+    let addNewMessage = (values: NewMessageFormValuesType) => {
         props.sendMessage(values.newMessageBody)
     }
 
