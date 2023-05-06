@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from "react-redux";
 import {
-    follow, unfollow, requestUsers,
+    follow, unfollow, requestUsers, FilterType,
 } from "../../redux/usersReducer.ts";
 import Users from "./Users.tsx";
 import Preloader from "../common/Preloader/Preloader.tsx";
@@ -23,27 +23,31 @@ type MapStatePropsType = {
     users: Array<UserType>
     totalUsersCount: number
     followingInProgress: Array<number>
+    filter: FilterType
 }
 type MapDispatchPropsType = {
     follow: () => void
     unfollow: () => void
-    getUsers: (currentPage: number, pageSize: number) => void
+    getUsers: (currentPage: number, pageSize: number, term: string) => void
 }
 
 type PropsType = MapStatePropsType & MapDispatchPropsType
 
-type StateType = {}
-
-export class UsersContainer extends Component<PropsType, StateType> {
+export class UsersContainer extends Component<PropsType, {}> {
 
     componentDidMount() {
         const {currentPage, pageSize} = this.props;
-        this.props.getUsers(currentPage, pageSize);
+        this.props.getUsers(currentPage, pageSize, '');
     }
 
     onPageChanged = (pageNumber: number) => {
-        const {pageSize} = this.props;
-        this.props.getUsers(pageNumber, pageSize);
+        const {pageSize, filter} = this.props;
+        this.props.getUsers(pageNumber, pageSize, filter.term);
+    }
+
+    onFilterChanged = (filter: FilterType) => {
+        const {pageSize, currentPage} = this.props;
+        this.props.getUsers(currentPage, pageSize, filter.term);
     }
 
     render() {
@@ -54,6 +58,7 @@ export class UsersContainer extends Component<PropsType, StateType> {
             pageSize={this.props.pageSize}
             currentPage={this.props.currentPage}
             onPageChanged={this.onPageChanged}
+            onFilterChanged={this.onFilterChanged}
             users={this.props.users}
             follow={this.props.follow}
             unfollow={this.props.unfollow}
@@ -71,6 +76,7 @@ let mapStateToProps = (state: AppStateType | any): MapStatePropsType => {
         currentPage: getCurrentPage(state),
         isFetching: getIsFetching(state),
         followingInProgress: getFollowingInProgress(state),
+        filter: getUsersFilter(state),
     }
 }
 

@@ -3,12 +3,15 @@ import {nanoid} from "nanoid";
 import Paginator from "../common/Paginator/Paginator.tsx";
 import User from "./User.tsx";
 import {UserType} from "../../redux/types/types";
+import {UsersSearchForm} from "./UsersSearchForm.tsx";
+import {FilterType} from "../../redux/usersReducer";
 
 type UsersType = {
     totalUsersCount: number
     pageSize: number
     currentPage: number
     onPageChanged: (pageNumber: number) => void
+    onFilterChanged: (filter: FilterType) => void
     users: Array<UserType>
     followingInProgress: Array<number>,
     follow: () => void
@@ -21,6 +24,7 @@ const Users: React.FC<UsersType> =
          pageSize,
          currentPage,
          onPageChanged,
+        onFilterChanged,
          users,
          followingInProgress,
          follow,
@@ -29,7 +33,9 @@ const Users: React.FC<UsersType> =
 
     return (
         <div>
+            <UsersSearchForm onFilterChanged={onFilterChanged}/>
             <Paginator
+                portionSize={10}
                 currentPage={currentPage}
                 onPageChanged={onPageChanged}
                 totalItemsCount={totalUsersCount}
@@ -49,4 +55,5 @@ const Users: React.FC<UsersType> =
         </div>
     )
 }
+
 export default Users;
