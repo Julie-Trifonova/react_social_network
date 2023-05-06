@@ -1,20 +1,20 @@
 import React, {Component, ComponentType, lazy} from "react";
 import "./App.css";
-import Navbar from "./components/Navbar/Navbar";
+import Navbar from "./components/Navbar/Navbar.tsx";
 import {BrowserRouter, HashRouter, Navigate, Route, Routes} from "react-router-dom";
 
 import DialogsContainer from "./components/Dialogs/DialogsContainer.tsx";
 // const DialogsContainer = lazy(() => import('./components/Dialogs/DialogsContainer.tsx'))
 // const ProfileContainer = lazy(() => import('./components/Profile/ProfileContainer'))
 import UsersContainer from "./components/Users/UsersContainer.tsx";
-import ProfileContainer from "./components/Profile/ProfileContainer";
-import HeaderContainer from "./components/Header/HeaderContainer";
+import ProfileContainer from "./components/Profile/ProfileContainer.tsx";
+import HeaderContainer from "./components/Header/HeaderContainer.tsx";
 import Login from "./components/Login/Login.tsx";
 import {connect, Provider} from "react-redux";
 import withRouter from "./components/common/WithRouter";
 import {compose} from "redux";
 import {initializeApp} from "./redux/appReducer.ts";
-import Preloader from "./components/common/Preloader/Preloader";
+import Preloader from "./components/common/Preloader/Preloader.tsx";
 import store, {AppStateType} from "./redux/reduxStore.ts";
 import {withSuspense} from "./hoc/withSuspense";
 

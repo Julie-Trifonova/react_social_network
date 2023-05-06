@@ -4,7 +4,7 @@ import {
     follow, unfollow, requestUsers,
 } from "../../redux/usersReducer.ts";
 import Users from "./Users.tsx";
-import Preloader from "../common/Preloader/Preloader";
+import Preloader from "../common/Preloader/Preloader.tsx";
 import {compose} from "redux";
 import {
     getCurrentPage,

@@ -1,7 +1,7 @@
 import React from "react";
 import {nanoid} from "nanoid";
 import Paginator from "../common/Paginator/Paginator.tsx";
-import User from "./User";
+import User from "./User.tsx";
 import {UserType} from "../../redux/types/types";
 
 type UsersType = {

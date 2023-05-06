@@ -1,14 +1,14 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import s from '../Dialogs.module.css'
-// import { NavLink } from "react-router-dom";
 
-const Message = (props) => {
+type PropsType = {
+  message: string
+}
+
+const Message: React.FC<PropsType> = (props) => {
   return (
     <div className={s.message}>{props.message}</div>
   )
 }
-
-Message.propTypes = {}
 
 export default Message
