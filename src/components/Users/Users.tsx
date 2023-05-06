@@ -4,56 +4,64 @@ import Paginator from "../common/Paginator/Paginator.tsx";
 import User from "./User.tsx";
 import {UserType} from "../../redux/types/types";
 import {UsersSearchForm} from "./UsersSearchForm.tsx";
-import {FilterType} from "../../redux/usersReducer";
+import {FilterType, requestUsers} from "../../redux/usersReducer";
+import {useDispatch, useSelector} from "react-redux";
+import {
+    getCurrentPage,
+    getFollowingInProgress,
+    getPageSize,
+    getTotalUsersCount,
+    getUsers,
+    getUsersFilter
+} from "../../redux/usersSelectors.ts";
 
-type UsersType = {
-    totalUsersCount: number
-    pageSize: number
-    currentPage: number
-    onPageChanged: (pageNumber: number) => void
-    onFilterChanged: (filter: FilterType) => void
-    users: Array<UserType>
+type PropsType = {
     followingInProgress: Array<number>,
     follow: () => void
     unfollow: () => void
 }
 
-const Users: React.FC<UsersType> =
-    ({
-         totalUsersCount,
-         pageSize,
-         currentPage,
-         onPageChanged,
-        onFilterChanged,
-         users,
-         followingInProgress,
-         follow,
-         unfollow,
-     }) => {
+const Users: React.FC<PropsType> = (props) => {
+        const users = useSelector(getUsers)
+        const totalUsersCount = useSelector(getTotalUsersCount)
+        const currentPage = useSelector(getCurrentPage)
+        const pageSize = useSelector(getPageSize)
+        const filter = useSelector(getUsersFilter)
+        const followingInProgress = useSelector(getFollowingInProgress)
 
-    return (
-        <div>
-            <UsersSearchForm onFilterChanged={onFilterChanged}/>
-            <Paginator
-                portionSize={10}
-                currentPage={currentPage}
-                onPageChanged={onPageChanged}
-                totalItemsCount={totalUsersCount}
-                pageSize={pageSize}
-            />
+        const dispatch = useDispatch()
+
+
+        const onPageChanged = (pageNumber: number) => {
+            dispatch(requestUsers(pageNumber, pageSize, filter))
+        }
+        const onFilterChanged = (filter: FilterType) => {
+            dispatch(requestUsers(1, pageSize, filter))
+        }
+
+        return (
             <div>
-                {
-                    users.map(u => <User
-                        key={nanoid()}
-                        user={u}
-                        followingInProgress={followingInProgress}
-                        follow={follow}
-                        unfollow={unfollow}
-                    />)
-                }
+                <UsersSearchForm onFilterChanged={onFilterChanged}/>
+                <Paginator
+                    portionSize={10}
+                    currentPage={currentPage}
+                    onPageChanged={onPageChanged}
+                    totalItemsCount={totalUsersCount}
+                    pageSize={pageSize}
+                />
+                <div>
+                    {
+                        users.map(u => <User
+                            key={nanoid()}
+                            user={u}
+                            followingInProgress={followingInProgress}
+                            follow={follow}
+                            unfollow={unfollow}
+                        />)
+                    }
+                </div>
             </div>
-        </div>
-    )
-}
+        )
+    }
 
 export default Users;
