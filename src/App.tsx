@@ -8,7 +8,6 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer.tsx";
 import {UsersPage} from "./components/Users/UsersContainer.tsx";
 import ProfileContainer from "./components/Profile/ProfileContainer.tsx";
 import HeaderContainer from "./components/Header/HeaderContainer.tsx";
-import Login from "./components/Login/Login.tsx";
 import {connect, Provider} from "react-redux";
 import withRouter from "./components/common/WithRouter";
 import {compose} from "redux";
@@ -16,6 +15,7 @@ import {initializeApp} from "./redux/appReducer.ts";
 import Preloader from "./components/common/Preloader/Preloader.tsx";
 import store, {AppStateType} from "./redux/reduxStore.ts";
 import {withSuspense} from "./hoc/withSuspense";
+import {LoginPage} from "./components/Login/LoginPage.tsx";
 
 type MapPropsType = ReturnType<typeof mapStateToProps>
 type DispatchPropsType = {
@@ -67,7 +67,7 @@ class App extends Component<MapPropsType & DispatchPropsType, OwnsType> {
                         }
                         />
                         <Route exact path="/users" element={<UsersPage/>}/>
-                        <Route exact path="/login" element={<Login/>}/>
+                        <Route exact path="/login" element={<LoginPage/>}/>
                         <Route exact path="*" element={<div>404 NOT FOUND</div>}/>
                     </Routes>
                 </div>
