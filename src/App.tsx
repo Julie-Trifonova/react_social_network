@@ -2,11 +2,10 @@ import React, {Component, ComponentType, lazy} from "react";
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar.tsx";
 import {BrowserRouter, HashRouter, Navigate, Route, Routes} from "react-router-dom";
-
 import DialogsContainer from "./components/Dialogs/DialogsContainer.tsx";
 // const DialogsContainer = lazy(() => import('./components/Dialogs/DialogsContainer.tsx'))
 // const ProfileContainer = lazy(() => import('./components/Profile/ProfileContainer'))
-import UsersContainer from "./components/Users/UsersContainer.tsx";
+import {UsersPage} from "./components/Users/UsersContainer.tsx";
 import ProfileContainer from "./components/Profile/ProfileContainer.tsx";
 import HeaderContainer from "./components/Header/HeaderContainer.tsx";
 import Login from "./components/Login/Login.tsx";
@@ -67,7 +66,7 @@ class App extends Component<MapPropsType & DispatchPropsType, OwnsType> {
                             // <SuspendedProfile/>
                         }
                         />
-                        <Route exact path="/users" element={<UsersContainer/>}/>
+                        <Route exact path="/users" element={<UsersPage/>}/>
                         <Route exact path="/login" element={<Login/>}/>
                         <Route exact path="*" element={<div>404 NOT FOUND</div>}/>
                     </Routes>
