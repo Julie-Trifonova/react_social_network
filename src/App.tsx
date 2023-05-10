@@ -1,5 +1,6 @@
 import React, {Component, ComponentType, lazy} from "react";
 import "./App.css";
+import 'antd/dist/reset.css'
 import Navbar from "./components/Navbar/Navbar.tsx";
 import {BrowserRouter, HashRouter, Navigate, Route, Routes} from "react-router-dom";
 import DialogsContainer from "./components/Dialogs/DialogsContainer.tsx";
@@ -16,6 +17,8 @@ import Preloader from "./components/common/Preloader/Preloader.tsx";
 import store, {AppStateType} from "./redux/reduxStore.ts";
 import {withSuspense} from "./hoc/withSuspense";
 import {LoginPage} from "./components/Login/LoginPage.tsx";
+import {Button} from "antd";
+import AppLayout from "./css/Layout.tsx";
 
 type MapPropsType = ReturnType<typeof mapStateToProps>
 type DispatchPropsType = {
@@ -45,33 +48,36 @@ class App extends Component<MapPropsType & DispatchPropsType, OwnsType> {
             return <Preloader/>
         }
         return (
-            <div className="app-wrapper">
-                <HeaderContainer/>
-                <Navbar/>
-                <div className="app-wrapper-content">
-                    <Routes>
-                        <Route exact path="/" element={<Navigate to ={'/profile'} replace/>}/>
-                        <Route
-                            exact
-                            path="/dialogs"
-                            element={
-                            <DialogsContainer/>
-                            // <SuspendedDialogs/>
-                        }
-                        />
-                        <Route
-                            exact
-                            path="/profile/:userId?"
-                            element={<ProfileContainer/>
-                            // <SuspendedProfile/>
-                        }
-                        />
-                        <Route exact path="/users" element={<UsersPage/>}/>
-                        <Route exact path="/login" element={<LoginPage/>}/>
-                        <Route exact path="*" element={<div>404 NOT FOUND</div>}/>
-                    </Routes>
-                </div>
-            </div>
+            <AppLayout/>
+            // <div className="app-wrapper">
+            //     <HeaderContainer/>
+            //     <Navbar/>
+            //     <div className="app-wrapper-content">
+            //         <Routes>
+            //             <Route exact path="/" element={<Navigate to ={'/profile'} replace/>}/>
+            //             <Route
+            //                 exact
+            //                 path="/dialogs"
+            //                 element={
+            //                 <DialogsContainer/>
+            //                 // <SuspendedDialogs/>
+            //             }
+            //             />
+            //             <Route
+            //                 exact
+            //                 path="/profile/:userId?"
+            //                 element={<ProfileContainer/>
+            //                 // <SuspendedProfile/>
+            //             }
+            //             />
+            //             <Route exact path="/users" element={<UsersPage/>}/>
+            //             <Route exact path="/login" element={<LoginPage/>}/>
+            //             <Route exact path="*" element={<div>404 NOT FOUND</div>}/>
+            //         </Routes>
+            //     </div>
+            // </div>
+
+
         );
     }
 }
