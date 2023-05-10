@@ -13,6 +13,7 @@ import {
     getUsers,
     getUsersFilter
 } from "../../redux/usersSelectors.ts";
+import {useNavigate} from "react-router-dom";
 
 type PropsType = {}
 
@@ -25,6 +26,14 @@ export const Users: React.FC<PropsType> = (props) => {
     const followingInProgress = useSelector(getFollowingInProgress)
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    useEffect (() => {
+        navigate({
+            pathname: 'users',
+            search: `?term=${filter.term}&friend=${filter.friend}`
+        })
+    }, [filter])
 
     useEffect(() => {
         dispatch(requestUsers(currentPage, pageSize, filter))
