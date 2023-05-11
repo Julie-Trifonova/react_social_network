@@ -11,6 +11,7 @@ import {LoginPage} from "../components/Login/LoginPage.tsx";
 import s from './Layout.module.css'
 import SubMenu from "antd/es/menu/SubMenu";
 import {Header} from "../components/Header/Header.tsx";
+import {ChatPage} from "../pages/Chat/ChatPage.tsx";
 
 
 const {Content, Footer, Sider} = Layout;
@@ -70,20 +71,27 @@ const AppLayout: React.FC = () => {
                         >
                             <SubMenu key='sub1' icon={<UserOutlined/>} title='My Profile'>
                                 <Menu.Item key='1'>
-                                    <NavLink to="/profile" className={({isActive}) => (isActive ? s.active : s.inactive)}>
+                                    <NavLink to="/profile">
                                         Profile
                                     </NavLink>
                                 </Menu.Item>
                                 <Menu.Item key='2'>
-                                    <NavLink to="/dialogs" className={({isActive}) => (isActive ? s.active : s.inactive)}>
+                                    <NavLink to="/dialogs">
                                         Messages
                                     </NavLink>
                                 </Menu.Item>
                             </SubMenu>
                             <SubMenu key='sub2' icon={<UserOutlined/>} title='Developers'>
                                 <Menu.Item key='3'>
-                                    <NavLink to="/developers" className={({isActive}) => (isActive ? s.active : s.inactive)}>
+                                    <NavLink to="/developers">
                                         Developers
+                                    </NavLink>
+                                </Menu.Item>
+                            </SubMenu>
+                            <SubMenu key='sub3' icon={<UserOutlined/>} title='subnav 3'>
+                                <Menu.Item key='4'>
+                                    <NavLink to="/chat">
+                                        Chat
                                     </NavLink>
                                 </Menu.Item>
                             </SubMenu>
@@ -109,6 +117,7 @@ const AppLayout: React.FC = () => {
                             />
                             <Route exact path="/developers" element={<UsersPage/>}/>
                             <Route exact path="/login" element={<LoginPage/>}/>
+                            <Route exact path="/chat" element={<ChatPage/>}/>
                             <Route exact path="*" element={<div>404 NOT FOUND</div>}/>
                         </Routes>
                     </Content>
