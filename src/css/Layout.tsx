@@ -2,7 +2,7 @@ import React from 'react';
 import {LaptopOutlined, NotificationOutlined, UserOutlined} from '@ant-design/icons';
 
 import type {MenuProps} from 'antd';
-import {Breadcrumb, Layout, Menu, theme} from 'antd';
+import {Avatar, Breadcrumb, Col, Layout, Menu, Row, theme} from 'antd';
 import {Navigate, NavLink, Route, Routes} from "react-router-dom";
 import DialogsContainer from "../components/Dialogs/DialogsContainer.tsx";
 import ProfileContainer from "../components/Profile/ProfileContainer.tsx";
@@ -10,9 +10,10 @@ import {UsersPage} from "../components/Users/UsersContainer.tsx";
 import {LoginPage} from "../components/Login/LoginPage.tsx";
 import s from './Layout.module.css'
 import SubMenu from "antd/es/menu/SubMenu";
+import {Header} from "../components/Header/Header.tsx";
 
 
-const {Header, Content, Footer, Sider} = Layout;
+const {Content, Footer, Sider} = Layout;
 
 const items1: MenuProps['items'] = ['1', '2', '3'].map((key) => ({
     key,
@@ -51,14 +52,7 @@ const AppLayout: React.FC = () => {
 
     return (
         <Layout>
-            <Header className="header">
-                <div className="logo"/>
-                <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
-                <Menu.Item key='1'>nav 1</Menu.Item>
-                <Menu.Item key='2'>nav 2</Menu.Item>
-                <Menu.Item key='3'>nav 3</Menu.Item>
-                </Menu>
-            </Header>
+            <Header/>
             <Content style={{padding: '0 50px'}}>
                 <Breadcrumb style={{margin: '16px 0'}}>
                     <Breadcrumb.Item>Home</Breadcrumb.Item>
@@ -88,8 +82,8 @@ const AppLayout: React.FC = () => {
                             </SubMenu>
                             <SubMenu key='sub2' icon={<UserOutlined/>} title='Developers'>
                                 <Menu.Item key='3'>
-                                    <NavLink to="/users" className={({isActive}) => (isActive ? s.active : s.inactive)}>
-                                        Users
+                                    <NavLink to="/developers" className={({isActive}) => (isActive ? s.active : s.inactive)}>
+                                        Developers
                                     </NavLink>
                                 </Menu.Item>
                             </SubMenu>
@@ -113,7 +107,7 @@ const AppLayout: React.FC = () => {
                                     // <SuspendedProfile/>
                                 }
                             />
-                            <Route exact path="/users" element={<UsersPage/>}/>
+                            <Route exact path="/developers" element={<UsersPage/>}/>
                             <Route exact path="/login" element={<LoginPage/>}/>
                             <Route exact path="*" element={<div>404 NOT FOUND</div>}/>
                         </Routes>
