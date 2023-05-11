@@ -3,11 +3,14 @@ import {LaptopOutlined, NotificationOutlined, UserOutlined} from '@ant-design/ic
 
 import type {MenuProps} from 'antd';
 import {Breadcrumb, Layout, Menu, theme} from 'antd';
-import {Navigate, Route, Routes} from "react-router-dom";
+import {Navigate, NavLink, Route, Routes} from "react-router-dom";
 import DialogsContainer from "../components/Dialogs/DialogsContainer.tsx";
 import ProfileContainer from "../components/Profile/ProfileContainer.tsx";
 import {UsersPage} from "../components/Users/UsersContainer.tsx";
 import {LoginPage} from "../components/Login/LoginPage.tsx";
+import s from './Layout.module.css'
+import SubMenu from "antd/es/menu/SubMenu";
+
 
 const {Header, Content, Footer, Sider} = Layout;
 
@@ -20,17 +23,22 @@ const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOu
     (icon, index) => {
         const key = String(index + 1);
 
+        let newLabel = ''
+        if (key === '1') newLabel = 'My profile'
+        if (key === '2') newLabel = 'Developers'
+        if (key === '3') newLabel = 'Subnav 3'
         return {
             key: `sub${key}`,
             icon: React.createElement(icon),
             label: `subnav ${key}`,
+            children:
+                new Array(4).fill(null).map((_, j) => {
+            const subKey = index * 4 + j + 1;
 
-            children: new Array(4).fill(null).map((_, j) => {
-                const subKey = index * 4 + j + 1;
-                return {
-                    key: subKey,
-                    label: `option${subKey}`,
-                };
+            return {
+                key: subKey,
+                label: `option${subKey}`,
+            };
             }),
         };
     },
@@ -45,7 +53,11 @@ const AppLayout: React.FC = () => {
         <Layout>
             <Header className="header">
                 <div className="logo"/>
-                <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} items={items1}/>
+                <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
+                <Menu.Item key='1'>nav 1</Menu.Item>
+                <Menu.Item key='2'>nav 2</Menu.Item>
+                <Menu.Item key='3'>nav 3</Menu.Item>
+                </Menu>
             </Header>
             <Content style={{padding: '0 50px'}}>
                 <Breadcrumb style={{margin: '16px 0'}}>
@@ -58,14 +70,34 @@ const AppLayout: React.FC = () => {
                         <Menu
                             mode="inline"
                             defaultSelectedKeys={['1']}
-                            defaultOpenKeys={['sub1']}
+                            // defaultOpenKeys={['sub1']}
                             style={{height: '100%'}}
-                            items={items2}
-                        />
+                            // items={items2}
+                        >
+                            <SubMenu key='sub1' icon={<UserOutlined/>} title='My Profile'>
+                                <Menu.Item key='1'>
+                                    <NavLink to="/profile" className={({isActive}) => (isActive ? s.active : s.inactive)}>
+                                        Profile
+                                    </NavLink>
+                                </Menu.Item>
+                                <Menu.Item key='2'>
+                                    <NavLink to="/dialogs" className={({isActive}) => (isActive ? s.active : s.inactive)}>
+                                        Messages
+                                    </NavLink>
+                                </Menu.Item>
+                            </SubMenu>
+                            <SubMenu key='sub2' icon={<UserOutlined/>} title='Developers'>
+                                <Menu.Item key='3'>
+                                    <NavLink to="/users" className={({isActive}) => (isActive ? s.active : s.inactive)}>
+                                        Users
+                                    </NavLink>
+                                </Menu.Item>
+                            </SubMenu>
+                        </Menu>
                     </Sider>
                     <Content style={{padding: '0 24px', minHeight: 280}}>
                         <Routes>
-                            <Route exact path="/" element={<Navigate to ={'/profile'} replace/>}/>
+                            <Route exact path="/" element={<Navigate to={'/profile'} replace/>}/>
                             <Route
                                 exact
                                 path="/dialogs"
