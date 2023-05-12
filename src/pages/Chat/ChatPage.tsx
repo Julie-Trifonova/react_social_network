@@ -19,17 +19,26 @@ const Chat: React.FC = () => {
     const [wsChannel, setWsChannel] = useState<WebSocket | null>(null)
 
     useEffect(() => {
-        function createChannel() {
-            setWsChannel(new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx'))
+        let ws: WebSocket
+        const closeHandler = () => {
+            setTimeout(createChannel, 3000)
         }
-        createChannel()
-    }, [])
 
-    useEffect(() => {
-        wsChannel?.addEventListener('close', () => {
-            console.log('CLOSE WS')
-        })
-    }, [wsChannel])
+        function createChannel() {
+            ws?.removeEventListener('close', closeHandler)
+            ws?.close()
+            ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx');
+            ws.addEventListener('close', closeHandler)
+            setWsChannel(ws)
+        }
+
+        createChannel()
+
+        return () => {
+            ws.removeEventListener('close', closeHandler)
+            ws.close()
+        }
+    }, [])
 
     return (
         <div>
@@ -39,20 +48,25 @@ const Chat: React.FC = () => {
     )
 }
 
-const Messages: React.FC<{wsChannel: WebSocket | null}> = ({wsChannel}) => {
+const Messages: React.FC<{ wsChannel: WebSocket | null }> = ({wsChannel}) => {
     const [messages, setMessages] = useState<ChatMessageType[]>([])
 
     useEffect(() => {
-        wsChannel?.addEventListener('message', (e) => {
+        let messageHandler = (e: MessageEvent) => {
             let newMessages = JSON.parse(e.data);
-            setMessages((prevMessages) => [...messages, ...newMessages])
-        })
+            setMessages((prevMessages) => [...prevMessages, ...newMessages])
+        };
+        wsChannel?.addEventListener('message', messageHandler)
+
+        return () => {
+            wsChannel?.removeEventListener('message', messageHandler)
+        }
     }, [wsChannel])
 
     return (
-            <div style={{height: '400px', overflow: "auto"}}>
-                {messages.map((m: any) => <Message key={nanoid()} message={m}/>)}
-            </div>
+        <div style={{height: '400px', overflow: "auto"}}>
+            {messages.map((m: any) => <Message key={nanoid()} message={m}/>)}
+        </div>
     )
 }
 
@@ -68,15 +82,19 @@ const Message: React.FC<{ message: ChatMessageType }> = ({message}) => {
     )
 }
 
-const AddMessageForm: React.FC<{wsChannel: WebSocket | null}> = ({wsChannel}) => {
+const AddMessageForm: React.FC<{ wsChannel: WebSocket | null }> = ({wsChannel}) => {
 
     const [message, setMessage] = useState('')
     const [readyStatus, setReadyStatus] = useState<'pending' | 'ready'>('pending')
 
     useEffect(() => {
-        wsChannel?.addEventListener('open', () => {
+        let openHandler = () => {
             setReadyStatus('ready')
-        })
+        };
+        wsChannel?.addEventListener('open', openHandler)
+        return () => {
+            wsChannel?.removeEventListener('open', openHandler)
+        }
     }, [wsChannel])
 
     const sendMessage = () => {
